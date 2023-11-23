@@ -19,7 +19,7 @@ class Profile(models.Model):
 
 class Media(models.Model):
     title = models.CharField(max_length=30)
-    document = models.FileField(max_length=30)
+    document = models.FileField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
     likes = models.IntegerField(default=0)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -49,5 +49,18 @@ class Messages(models.Model):
     )
     
     message_content = models.CharField()
+
+class Follows(models.Model):
+    sender_profile = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        related_name='my_profile'
+    )
+    
+    receiver_profile = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        related_name='following_profile'
+    )
 
 

@@ -1,12 +1,13 @@
 from django.contrib.auth.models import User, Group
-from .models import Profile, Posts, Feed, Messages, Media
+from .models import Profile, Posts, Feed, Messages, Media, Follows
 from rest_framework import viewsets, permissions, generics, status, parsers
-from .serializers import UserSerializer, GroupSerializer, ProfileSerializer, PostsSerializer, FeedSerializer, MessagesSerializer, MediaSerializer
+from .serializers import UserSerializer, GroupSerializer, ProfileSerializer, PostsSerializer, FeedSerializer, MessagesSerializer, MediaSerializer, FollowsSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import AllowAny
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # import uuid
 # import boto3
@@ -86,18 +87,21 @@ class HomeView(APIView):
 class LogoutView(APIView):
     permission_classes = (IsAuthenticated,)
     def post(self, request):
-        
         try:
-            refresh_token = request.data["refresh_token"]
+            refresh_token = request.body["refresh_token"]
             token = RefreshToken(refresh_token)
             token.blacklist()
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 class CreateUser(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class CreateMessages(generics.CreateAPIView):
+    queryset = Messages.objects.all()
+    serializer_class = MessagesSerializer
 
 class CreateProfile(generics.CreateAPIView):
     queryset = Profile.objects.all()
@@ -144,3 +148,11 @@ class addMediaViewSet(viewsets.ModelViewSet):
 class MediaViewSet(viewsets.ModelViewSet):
     queryset = Media.objects.all()
     serializer_class = MediaSerializer
+
+class FollowsViewSet(viewsets.ModelViewSet):
+    queryset = Follows.objects.all()
+    serializer_class = FollowsSerializer
+
+class CreateFollows(generics.CreateAPIView):
+    queryset = Follows.objects.all()
+    serializer_class = FollowsSerializer

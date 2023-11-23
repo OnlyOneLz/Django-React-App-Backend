@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Profile, Posts, Feed, Messages, Media
+from .models import Profile, Posts, Feed, Messages, Media, Follows
 import django.contrib.auth.password_validation as validation
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
@@ -62,6 +62,11 @@ class FeedSerializer (serializers.HyperlinkedModelSerializer):
 class MessagesSerializer (serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Messages
+        fields = '__all__'
+
+class FollowsSerializer (serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Follows
         fields = '__all__'
 
 class MediaSerializer (serializers.ModelSerializer):
