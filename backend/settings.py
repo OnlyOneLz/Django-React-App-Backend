@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
-    'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
 ]
 CORS_ORIGIN_ALLOW_ALL = True
