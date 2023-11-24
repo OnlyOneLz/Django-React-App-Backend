@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
-from .models import Profile, Posts, Feed, Messages, Media, Follows
+from .models import Profile, Posts, Feed, Messages, Media, Follows, Likes
 from rest_framework import viewsets, permissions, generics, status, parsers
-from .serializers import UserSerializer, GroupSerializer, ProfileSerializer, PostsSerializer, FeedSerializer, MessagesSerializer, MediaSerializer, FollowsSerializer
+from .serializers import UserSerializer, GroupSerializer, ProfileSerializer, PostsSerializer, FeedSerializer, MessagesSerializer, MediaSerializer, FollowsSerializer, LikesSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -35,6 +35,10 @@ class GroupViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+class LikesViewSet(viewsets.ModelViewSet):
+    queryset = Likes.objects.all()
+    serializer_class = LikesSerializer
 
     # def retrieve(self, request, *args, **kwargs):
     #     # The Primary Key of the object is passed to the retrieve method through self.kwargs
@@ -98,6 +102,10 @@ class LogoutView(APIView):
 class CreateUser(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class CreateLikes(generics.CreateAPIView):
+    queryset = Likes.objects.all()
+    serializer_class = LikesSerializer
 
 class CreateMessages(generics.CreateAPIView):
     queryset = Messages.objects.all()

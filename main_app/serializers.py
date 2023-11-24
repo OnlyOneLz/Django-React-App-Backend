@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Profile, Posts, Feed, Messages, Media, Follows
+from .models import Profile, Posts, Feed, Messages, Media, Follows, Likes
 import django.contrib.auth.password_validation as validation
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
@@ -32,6 +32,11 @@ class GroupSerializer (serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ['url', 'name']
+
+class LikesSerializer (serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Likes
+        fields = '__all__'
 
 class ProfileSerializer (serializers.ModelSerializer):
     # user = UserSerializer()

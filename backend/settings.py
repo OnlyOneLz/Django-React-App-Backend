@@ -37,7 +37,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'django-react-app-backend-production.up.railway.app',
-    'django-react-app-backend.railway.internal'
+    'django-react-app-backend.railway.internal',
+    'localhost'
 ]
 
 

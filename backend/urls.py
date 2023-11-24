@@ -18,6 +18,7 @@ router.register(r'messages', views.MessagesViewSet)
 router.register(r'add_media', views.addMediaViewSet)
 router.register(r'media', views.MediaViewSet)
 router.register(r'follows', views.FollowsViewSet)
+router.register(r'likes', views.LikesViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +26,7 @@ urlpatterns = [
     path('create_profile/', views.CreateProfile.as_view(), name='create_profile'),
     path('add_message/', views.CreateMessages.as_view(), name='create_message'),
     path('create_follow/', views.CreateFollows.as_view(), name='create_follow'),
+    path('create_likes/', views.CreateLikes.as_view(), name='create_likes'),
     path('token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('home/', views.HomeView.as_view(), name='home'),

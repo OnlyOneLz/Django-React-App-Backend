@@ -21,7 +21,6 @@ class Media(models.Model):
     title = models.CharField(max_length=30)
     document = models.FileField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
-    likes = models.IntegerField(default=0)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     # def __str__(self):
@@ -62,5 +61,9 @@ class Follows(models.Model):
         on_delete=models.CASCADE,
         related_name='following_profile'
     )
+
+class Likes(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    Media = models.ForeignKey(Media, on_delete=models.CASCADE)
 
 
